@@ -26,14 +26,22 @@ public class EventsManager : MonoBehaviourPun, IOnEventCallback
 
     public void OnEvent(EventData photonEvent)
     {
+        Player playerSender = null;
         // events here
         switch (photonEvent.Code)
         {
-            case CONSTANTS.EVENTS.ISREADY :
-
-                PhotonNetwork.LocalPlayer.IsReady = true;
-                Debug.Log("IS READY EVENT SENT");
-                //Here set the player is ready
+            case CONSTANTS.EVENTS.ISREADY:
+                Debug.Log("IS READY EVENT SENT"); 
+                foreach(Player p in PhotonNetwork.PlayerList)
+                {
+                    if(p.ActorNumber==photonEvent.Sender)
+                    {
+                        playerSender = p;
+                        break;
+                    }
+                }
+                if(playerSender!=null)
+                GetComponent<PhotonView>().RPC("SetReady", RpcTarget.All,playerSender);
                 break;
             case CONSTANTS.EVENTS.START_GAME:
                 Debug.Log("START GAME EVENT SENT");
@@ -41,6 +49,11 @@ public class EventsManager : MonoBehaviourPun, IOnEventCallback
             default:
                 break;
         }
+    }
+    [PunRPC]
+    void SetReady(Player player)
+    {
+        player.IsReady = true;
     }
 
     public void SendEvent(byte eventCode, object[] param)

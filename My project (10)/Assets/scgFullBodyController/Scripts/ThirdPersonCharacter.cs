@@ -45,9 +45,6 @@ namespace scgFullBodyController
         private void Awake()
         {
             PV = GetComponent<PhotonView>();
-        }
-        void Start()
-        {
             maxCamOriginal = camController.maxPitch;
             m_Animator = GetComponent<Animator>();
             m_Rigidbody = GetComponent<Rigidbody>();
@@ -56,11 +53,10 @@ namespace scgFullBodyController
             m_CapsuleCenter = m_Capsule.center;
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
-            if (!PV.IsMine)
-            {
-              
-
-            }
+        }
+        void Start()
+        {
+           
         }
 
 
@@ -279,8 +275,10 @@ namespace scgFullBodyController
         {
             if (!PV.IsMine)
                 return;
-            // apply extra gravity from multiplier:
-            Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+            if (m_Rigidbody == null)
+            m_Rigidbody = GetComponent<Rigidbody>();
+          // apply extra gravity from multiplier:
+          Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
             m_Rigidbody.AddForce(extraGravityForce);
 
             m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
@@ -318,6 +316,7 @@ namespace scgFullBodyController
 
         public void OnAnimatorMove()
         {
+
             if (!PV.IsMine)
                 return;
             // we implement this function to override the default root motion.

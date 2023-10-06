@@ -1,15 +1,13 @@
 using Photon.Pun;
-using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Photon.Realtime;
 public class LoadMapCanvas : MonoBehaviour
 {
-    public PhotonView PV;
     public Canvas Base;
     public static LoadMapCanvas instance;
 
@@ -19,7 +17,6 @@ public class LoadMapCanvas : MonoBehaviour
 
     private void Awake()
     {
-
         if (!instance)
         {
             instance = this;
@@ -29,7 +26,6 @@ public class LoadMapCanvas : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PV = GetComponent<PhotonView>();
     }
 
     private void OnEnable()
@@ -86,9 +82,11 @@ public class LoadMapCanvas : MonoBehaviour
         loadSceneBarText.text = "Loading Map:100% ";
         loadSceneBar.value = 1;
         yield return new WaitForSeconds(3);
-        //    EventsManager.instance.SendEvent(CONSTANTS.EVENTS.ISREADY, null);
-        PV.RPC("ChangeReadyState", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer, true);
-        PhotonNetwork.LocalPlayer.IsReady = true;
+          EventsManager.instance.SendEvent(CONSTANTS.EVENTS.ISREADY, null);
+        //PhotonNetwork.LocalPlayer.IsReady = true;
+        //var hash = PhotonNetwork.LocalPlayer.CustomProperties;
+        //hash["Ready"] = true;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         //Hide();
         // Here u send an event to the other player that you are ready
         //yield return new WaitUntil(() => AllPlayersAreReady);
@@ -96,10 +94,5 @@ public class LoadMapCanvas : MonoBehaviour
         if(PhotonNetwork.IsMasterClient)
         StartCoroutine(GameMapManager.instance.WaitForPlayer());
         }
-    [PunRPC]
-    void ChangeReadyState(Player player, bool ready )
-    {
-        player.IsReady = ready;
-    }
 
     }

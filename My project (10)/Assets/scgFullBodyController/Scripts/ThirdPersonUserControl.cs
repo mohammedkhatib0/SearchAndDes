@@ -68,8 +68,7 @@ namespace scgFullBodyController
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
             if (!PV.IsMine)
-                Destroy(GetComponentInChildren<Camera>().gameObject);
-            // Ping = GameObject.FindGameObjectWithTag("hud").GetComponent<>;
+                GetComponentInChildren<Camera>().gameObject.SetActive(false);
 
         }
 
@@ -200,7 +199,7 @@ namespace scgFullBodyController
             {
                 strafe = false;
             }
-           // m_Character.updateLate(m_Move, crouch, prone, vaulting, forwards, backwards, strafe, horizontalInput, verticalInput);
+            m_Character.updateLate(m_Move, crouch, prone, vaulting, forwards, backwards, strafe, horizontalInput, verticalInput);
         }
 
         void vaultCancel()
@@ -222,7 +221,7 @@ namespace scgFullBodyController
             if (sprint) m_Move *= sprintSpeed;
 
             //// pass all parameters to the character control script
-          // m_Character.Move(m_Move, crouch, m_Jump, slide, vaulting);
+           m_Character.Move(m_Move, crouch, m_Jump, slide, vaulting);
 
             m_Character.HandleGroundMovement(crouch, m_Jump, slide);
             //m_Jump = false;

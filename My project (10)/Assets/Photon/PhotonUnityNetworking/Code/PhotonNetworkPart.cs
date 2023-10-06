@@ -770,7 +770,13 @@ namespace Photon.Pun
 
         /// <summary>Removes GameObject and the PhotonViews on it from local lists and optionally updates remotes. GameObject gets destroyed at end.</summary>
         /// <remarks>
-        /// This method might fail and quit early due to several tests.
+        /// This method might fail and q
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// t early due to several tests.
         /// </remarks>
         /// <param name="go">GameObject to cleanup.</param>
         /// <param name="localOnly">For localOnly, tests of control are skipped and the server is not updated.</param>

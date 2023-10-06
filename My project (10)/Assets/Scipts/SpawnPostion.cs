@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class SpawnPostion : MonoBehaviour
 {
-    public GameObject PlayerTest;
-    
 	[Header("PlayerSpawn")]
 	public List<Transform> AlphaTeam;
 	public List<Transform> BravoTeam;
@@ -20,15 +18,20 @@ public class SpawnPostion : MonoBehaviour
     }
     private void Start()
     {
-      //      Instantiate(PlayerTest,AlphaTeam[0].position,AlphaTeam[0].rotation);
-        
-       // Instantiate(PlayerTest), AlphaTeam[0].position, AlphaTeam[0].rotation);
+        GetComponent<PhotonView>().RPC("InstantiateFunction", RpcTarget.All);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
+        AlphaTeam.RemoveAt(0);
+    }
 
-       PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
+    [PunRPC]
+    void InstantiateFunction()
+    {
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
         AlphaTeam.RemoveAt(0);
     }
     //GameManager isinde map
     //Network manager script in player
     //GRoomInfo from lancher to map
-   
+
+
 }

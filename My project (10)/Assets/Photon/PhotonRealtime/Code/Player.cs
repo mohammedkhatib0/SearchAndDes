@@ -58,6 +58,18 @@ namespace Photon.Realtime
         {
             get;set;
         }
+        
+        public string Team
+        {
+            get { return team; }
+            set
+            {
+                if (!(this.team.Equals("Alpha") || this.team.Equals("Bravo")))
+                    return;
+                this.team = value;
+            }
+        }
+        private string team = string.Empty;
 
 
         /// <summary>Only one player is controlled by each client. Others are not local.</summary>

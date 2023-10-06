@@ -2607,11 +2607,11 @@ namespace Photon.Pun
             photonViews = go.GetPhotonViewsInChildren();
 
 
-          //  if (photonViews.Length == 0)
-          //  {
-            //    Debug.LogError("PhotonNetwork.Instantiate() can only instantiate objects with a PhotonView component. This prefab does not have one: " + parameters.prefabName);
-             //   return null;
-          //  }
+            if (photonViews.Length == 0)
+            {
+                Debug.LogError("PhotonNetwork.Instantiate() can only instantiate objects with a PhotonView component. This prefab does not have one: " + parameters.prefabName);
+                return null;
+            }
 
             bool localInstantiate = !instantiateEvent && LocalPlayer.Equals(parameters.creator);
             if (localInstantiate)

@@ -37,7 +37,7 @@ namespace scgFullBodyController
         public float regenSpeed;
         bool alreadyRegenning;
         PhotonView PV;
-        public GameObject ui;
+        public hudController ui;
         private void Awake()
         {
             PV = GetComponent<PhotonView>();
@@ -50,8 +50,6 @@ namespace scgFullBodyController
 
             //Set maxHealth to what our max is at start of the scene
             maxHealth = health;
-            ui = GameObject.Find("hud");
-
         }
 
         void Update()
@@ -65,15 +63,15 @@ namespace scgFullBodyController
             }
 
             //Only update HUD text if we are a player
-            //ui.GetComponent<hudController>().Ping.text = "Ping:" + PhotonNetwork.GetPing() + "m/s";
-            //if (health > 0)
-            //    {
-            //        ui.GetComponent<hudController>().uiHealth.text = health.ToString();
-            //    }
-            //    else
-            //    {
-            //        ui.GetComponent<hudController>().uiHealth.text = "0";
-            //    }    
+            ui.GetComponent<hudController>().Ping.text = "Ping:" + PhotonNetwork.GetPing() + "m/s";
+            if (health > 0)
+            {
+                ui.uiHealth.text = health.ToString();
+            }
+            else
+            {
+                ui.uiHealth.text = "0";
+            }
             //Check if we are done regenning and stop
             if (health == maxHealth && regen && alreadyRegenning)
             {

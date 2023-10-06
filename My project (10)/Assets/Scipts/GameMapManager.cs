@@ -10,7 +10,6 @@ public class GameMapManager : MonoBehaviour
 {
 
     public static GameMapManager instance;
-    public Canvas Base;
     PhotonView PV;
 
     private void Awake()
@@ -41,38 +40,41 @@ public class GameMapManager : MonoBehaviour
         PV.RPC("GameStarted", RpcTarget.All);
         GameStarted();
         //Start the game
-
     }
     [PunRPC]
     private void GameStarted()
     {
         LoadMapCanvas.instance.Hide();
-        Show();
-
     }
-    void Show()
-    {
-        Base.enabled = true;
-    }
-    void Hide()
-    {
-        Base.enabled = false;
-    }
+  
     bool AllPlayersAreReady()
     {
-        //print(GRoomInfo.instance.Players.Count);
-        //foreach (PlayerNetwork player in GRoomInfo.instance.Players)
-        //{
-        //    if (!player.isReady) return false;
-        //}
-        //return true;
-        foreach (var photonPlayer in PhotonNetwork.PlayerList)
+        //PlayerNetwork[] photonPlayer;
+        print(GRoomInfo.instance.Players.Count);
+        foreach (Player player in PhotonNetwork.PlayerList)
         {
-            print(photonPlayer.IsReady);
-             if (photonPlayer == null||(bool)photonPlayer.IsReady == false) return false;
+            if (!player.IsReady) return false;
         }
         return true;
+        //photonPlayer = FindObjectsOfType<PlayerNetwork>();
+        //if (photonPlayer.Length != PhotonNetwork.CountOfPlayers) return false;
+        //foreach (PlayerNetwork player in photonPlayer)
+        //{
+        //    if (player == null) return false;
+        //    if (!player.GetComponent<PlayerNetwork>().IsReady)
+        //        return false;
+        //}
+        //foreach (PlayerNetwork player in photonPlayer)
+        //{
+        //    foreach(PlayerNetwork player1 in photonPlayer){
+        //        player.PlayerList.Add(player1.Actor, player1);
+        //    }
+        //}
+      //  return true;
     }
+       // var players = PhotonNetwork.PlayerList;
+
+    
     // when you join the scene you have to get all the players inside the scene
     // wait until you find all the players inside the scene that are == to PhotonNetwork.CurrentRoom.MaxPlayers
     // wait until all players are ready

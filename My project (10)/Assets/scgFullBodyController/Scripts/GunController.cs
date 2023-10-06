@@ -102,7 +102,7 @@ namespace scgFullBodyController
 
         public PhotonView gunPV;
 
-        public GameObject ui;
+        public hudController ui;
 
 
         private void Awake()
@@ -145,7 +145,6 @@ namespace scgFullBodyController
             if (mainCam != null)
                 originalCamPos = mainCam.transform.localPosition;
 
-            ui = GameObject.Find("hud");
         }
 
         public void initiliazeOrigPositions()
@@ -238,7 +237,7 @@ namespace scgFullBodyController
             }
 
             //UI
-            //ui.GetComponent<hudController>().uiBullets.text = bulletsInMag.ToString() + "/" + totalBullets;
+            ui.uiBullets.text = bulletsInMag.ToString() + "/" + totalBullets;
 
             //Anims
             anim.SetBool("Fire", firing);
@@ -298,7 +297,6 @@ namespace scgFullBodyController
                 mainCam.GetComponent<Camera>().nearClipPlane = originalCamClipPlane;
 
                 //Disable crosshair
-                GameObject ui = GameObject.FindGameObjectWithTag("hud");
                 ui.GetComponent<hudController>().crosshair.SetActive(true);
             }
 
