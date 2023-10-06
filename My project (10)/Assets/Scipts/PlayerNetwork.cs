@@ -48,11 +48,14 @@ public class PlayerNetwork : MonoBehaviourPunCallbacks,IPunObservable
     {
         if (stream.IsWriting)
         {
-			stream.SendNext(IsReady);
-        }
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+		}
         if (stream.IsReading)
         {
-			IsReady = (bool)stream.ReceiveNext();
-        }
+			transform.position = (Vector3)stream.ReceiveNext();
+			transform.rotation=(Quaternion)stream.ReceiveNext();
+		}
+	
     }
 }
