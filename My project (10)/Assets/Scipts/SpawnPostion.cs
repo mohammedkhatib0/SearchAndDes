@@ -9,6 +9,7 @@ public class SpawnPostion : MonoBehaviour
 	[Header("PlayerSpawn")]
 	public List<Transform> AlphaTeam;
 	public List<Transform> BravoTeam;
+    private PhotonView PV;
 
 	public static SpawnPostion Instanse { get; private set; }
     private void Awake()
@@ -18,16 +19,16 @@ public class SpawnPostion : MonoBehaviour
     }
     private void Start()
     {
-        GetComponent<PhotonView>().RPC("InstantiateFunction", RpcTarget.All);
-        //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
-       // AlphaTeam.RemoveAt(0);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
+
+        InstantiateFunction();
     }
 
-    [PunRPC]
+   
     void InstantiateFunction()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
-        AlphaTeam.RemoveAt(0);
+           // AlphaTeam.RemoveAt(Random.Range(0, AlphaTeam.Count - 1));
+        
     }
     //GameManager isinde map
     //Network manager script in player

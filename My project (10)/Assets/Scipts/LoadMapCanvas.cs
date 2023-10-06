@@ -82,7 +82,7 @@ public class LoadMapCanvas : MonoBehaviour
         loadSceneBarText.text = "Loading Map:100% ";
         loadSceneBar.value = 1;
         yield return new WaitForSeconds(3);
-          //EventsManager.instance.SendEvent(CONSTANTS.EVENTS.ISREADY, null);
+          EventsManager.instance.SendEvent(CONSTANTS.EVENTS.ISREADY, null);
         //PhotonNetwork.LocalPlayer.IsReady = true;
         //var hash = PhotonNetwork.LocalPlayer.CustomProperties;
         //hash["Ready"] = true;

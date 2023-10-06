@@ -22,7 +22,7 @@ public class PlayerNetwork : MonoBehaviourPunCallbacks,IPunObservable
 
 		else
 		{
-			Destroy(this.gameObject);
+			//Destroy(this.gameObject);
 		}
 	}
 	// Use this for initialization
