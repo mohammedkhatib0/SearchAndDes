@@ -9,8 +9,7 @@ using UnityEngine.UI;
 
 public class LoadMapCanvas : MonoBehaviour
 {
-    public GameObject PhotonViewPV;
-    private PhotonView PV;
+    public PhotonView PV;
     public Canvas Base;
     public static LoadMapCanvas instance;
 
@@ -30,7 +29,7 @@ public class LoadMapCanvas : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PV = PhotonViewPV.GetComponent<PhotonView>();
+        PV = GetComponent<PhotonView>();
     }
 
     private void OnEnable()
