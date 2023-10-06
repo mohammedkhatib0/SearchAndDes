@@ -32,6 +32,7 @@ public class PlayerNetwork : MonoBehaviourPunCallbacks,IPunObservable
 		PhotonNetwork.SendRate = 60;
 		PhotonNetwork.SerializationRate = 30;
 		Actor = PhotonNetwork.LocalPlayer.ActorNumber;
+		IsReady = true;
 	}
 
 	// Update is called once per frame

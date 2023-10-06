@@ -49,11 +49,13 @@ public class GameMapManager : MonoBehaviour
   
     bool AllPlayersAreReady()
     {
-        //PlayerNetwork[] photonPlayer;
+        GameObject[] photonPlayer;
+        photonPlayer = GameObject.FindGameObjectsWithTag("Player");
+        if (photonPlayer.Length != PhotonNetwork.CountOfPlayers) return false;
         print(GRoomInfo.instance.Players.Count);
-        foreach (Player player in PhotonNetwork.PlayerList)
+        foreach (GameObject player in photonPlayer)
         {
-            if (!player.IsReady) return false;
+            if (!player.GetComponent<PlayerNetwork>().IsReady) return false;
         }
         return true;
         //photonPlayer = FindObjectsOfType<PlayerNetwork>();
