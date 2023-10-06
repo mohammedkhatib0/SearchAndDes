@@ -19,8 +19,8 @@ public class SpawnPostion : MonoBehaviour
     private void Start()
     {
         GetComponent<PhotonView>().RPC("InstantiateFunction", RpcTarget.All);
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
-        AlphaTeam.RemoveAt(0);
+        //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), AlphaTeam[0].position, AlphaTeam[0].rotation);
+       // AlphaTeam.RemoveAt(0);
     }
 
     [PunRPC]

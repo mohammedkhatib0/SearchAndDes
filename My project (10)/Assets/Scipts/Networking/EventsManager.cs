@@ -20,7 +20,7 @@ public class EventsManager : MonoBehaviourPun, IOnEventCallback
         }
         else
         {
-            Destroy(this.gameObject);
+           // Destroy(this.gameObject);
         }
     }
 

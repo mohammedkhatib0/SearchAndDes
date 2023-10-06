@@ -57,8 +57,8 @@ public class PlayerEngine : MonoBehaviour
 
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPersonCharacter>();
-        if (!PV.IsMine)
-            Destroy(GetComponentInChildren<Camera>().gameObject);
+      //  if (!PV.IsMine)
+         //   Destroy(GetComponentInChildren<Camera>().gameObject);
         // Ping = GameObject.FindGameObjectWithTag("hud").GetComponent<>;
     }
 
