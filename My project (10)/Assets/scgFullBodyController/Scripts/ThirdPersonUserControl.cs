@@ -47,6 +47,7 @@ namespace scgFullBodyController
 
         //Amurii edir
         PhotonView PV;
+        public Canvas Base;
         private void Awake()
         {
             PV = GetComponent<PhotonView>();
@@ -68,7 +69,10 @@ namespace scgFullBodyController
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
             if (!PV.IsMine)
+            {
                 GetComponentInChildren<Camera>().gameObject.SetActive(false);
+                base.enabled=false;
+            }
 
         }
 
@@ -99,7 +103,8 @@ namespace scgFullBodyController
 
             verticalInput = Input.GetAxis("Vertical");
             horizontalInput = Input.GetAxis("Horizontal");
-
+            print(m_Jump);
+            print(canVault);
             if (!m_Jump)
             {
                 m_Jump = Input.GetButtonDown("Jump");
@@ -224,7 +229,7 @@ namespace scgFullBodyController
            m_Character.Move(m_Move, crouch, m_Jump, slide, vaulting);
 
             m_Character.HandleGroundMovement(crouch, m_Jump, slide);
-            //m_Jump = false;
+            m_Jump = false;
 
         }
 

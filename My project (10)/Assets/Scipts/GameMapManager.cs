@@ -51,7 +51,8 @@ public class GameMapManager : MonoBehaviour
     {
         GameObject[] photonPlayer;
         photonPlayer = GameObject.FindGameObjectsWithTag("Player");
-        if (photonPlayer.Length != PhotonNetwork.CountOfPlayers) return false;
+        print(PhotonNetwork.CountOfPlayers);
+       // if (photonPlayer.Length != PhotonNetwork.CountOfPlayers) return false;
         print(GRoomInfo.instance.Players.Count);
         foreach (GameObject player in photonPlayer)
         {

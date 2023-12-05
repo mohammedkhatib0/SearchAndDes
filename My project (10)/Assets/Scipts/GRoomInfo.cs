@@ -18,7 +18,7 @@ public class GRoomInfo : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 }

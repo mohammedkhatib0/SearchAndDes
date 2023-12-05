@@ -51,6 +51,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 		BravoTeamRef = BravoTeam;
 		Debug.Log("Connecting to Master");
 		PhotonNetwork.ConnectUsingSettings();
+		PhotonNetwork.SendRate = 60; //Default is 30
+		PhotonNetwork.SerializationRate = 60; //5 is really laggy, jumpy. Default is 10?
 	}
 
 	public override void OnConnectedToMaster()
