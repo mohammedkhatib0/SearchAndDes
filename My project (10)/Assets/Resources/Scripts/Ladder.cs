@@ -11,7 +11,6 @@ public class Ladder : MonoBehaviour
     public float speedUpDown=3.2f;
     public scgFullBodyController.ThirdPersonUserControl FPSInput;
     public scgFullBodyController.ThirdPersonCharacter FPS1Input;
-    public float x;
     void Start()
     {
         FPSInput = GetComponent<scgFullBodyController.ThirdPersonUserControl>();
