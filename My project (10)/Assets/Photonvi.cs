@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public class Photonvi : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+   public GameObject g;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
