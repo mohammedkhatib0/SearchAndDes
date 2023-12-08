@@ -71,7 +71,7 @@ namespace scgFullBodyController
             if (!PV.IsMine)
             {
                 GetComponentInChildren<Camera>().gameObject.SetActive(false);
-                base.enabled=false;
+                Base.enabled = false;
             }
 
         }

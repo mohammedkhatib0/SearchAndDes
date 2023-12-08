@@ -263,6 +263,10 @@ namespace Photon.Pun
         public virtual void OnJoinedRoom()
         {
         }
+        public virtual void OnChangeTeam()
+        {
+
+        }
 
         /// <summary>
         /// Called when a remote player entered the room. This Player is already added to the playerlist.
@@ -274,6 +278,7 @@ namespace Photon.Pun
         public virtual void OnPlayerEnteredRoom(Player newPlayer)
         {
         }
+
 
         /// <summary>
         /// Called when a remote player left the room or became inactive. Check otherPlayer.IsInactive.

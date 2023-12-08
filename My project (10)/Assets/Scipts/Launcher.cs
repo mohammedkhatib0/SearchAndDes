@@ -20,9 +20,15 @@ public class Launcher : MonoBehaviourPunCallbacks
 	[SerializeField] TMP_Text roomNameText;
 	[SerializeField] Transform roomListContent;
 	[SerializeField] GameObject roomListItemPrefab;
-	[SerializeField] Transform playerListContent;
 	[SerializeField] GameObject PlayerListItemPrefab;
 	[SerializeField] GameObject startGameButton;
+
+	[Header("Teams")]
+	[SerializeField] Transform AlphaTeamContent;
+	[SerializeField] Transform BravoTeamContent;
+	GameObject playerRef;
+	Dictionary<int, GameObject> PlayerList = new Dictionary<int, GameObject>();
+	int key;
 
 	[Header("PlayerSpawn")]
 	public static List<Transform> AlphaTeam;
@@ -35,24 +41,26 @@ public class Launcher : MonoBehaviourPunCallbacks
 	[SerializeField] Slider loadSceneBar;
 	[SerializeField] TextMeshProUGUI loadSceneBarText;
 
+	PhotonView PV;
+
 
 
 	void Awake()
 	{
 		Instance = this;
 		//DontDestroyOnLoad(LoadingMapCanvas);
+		PV = GetComponent<PhotonView>();
 		
 	}
 	void Start()
 	{
-       
-
         AlphaTeamRef = AlphaTeam;
 		BravoTeamRef = BravoTeam;
 		Debug.Log("Connecting to Master");
 		PhotonNetwork.ConnectUsingSettings();
 		PhotonNetwork.SendRate = 60; //Default is 30
 		PhotonNetwork.SerializationRate = 60; //5 is really laggy, jumpy. Default is 10?
+		key = 1;
 	}
 
 	public override void OnConnectedToMaster()
@@ -94,14 +102,15 @@ public class Launcher : MonoBehaviourPunCallbacks
 
 		Player[] players = PhotonNetwork.PlayerList;
 
-		foreach(Transform child in playerListContent)
+		foreach(Transform child in AlphaTeamContent)
 		{
 			Destroy(child.gameObject);
 		}
 
 		for(int i = 0; i < players.Count(); i++)
 		{
-			Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+			PlayerList[key] = Instantiate(PlayerListItemPrefab, AlphaTeamContent);
+			PlayerList[key++].GetComponent<PlayerListItem>().SetUp(players[i]);
 		}
 
 		 startGameButton.SetActive(PhotonNetwork.IsMasterClient);
@@ -182,10 +191,28 @@ public class Launcher : MonoBehaviourPunCallbacks
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)
 	{
-		Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+		 
 	}
 	public void onClickedExitGame()
     {
 		Application.Quit();
     }
+	public void SwitchTeams(string team)
+    {
+			PV.RPC("OnTeamChanged", RpcTarget.All, team,key-1);
+ 
+    }
+	[PunRPC]
+	public void OnTeamChanged(string team,int key)
+    {
+        if (team == "Alpha")
+        {
+			PlayerList[key].transform.SetParent(AlphaTeamContent, false);
+		}
+		if (team == "Bravo")
+		{
+
+				PlayerList[key].transform.SetParent(BravoTeamContent, false);
+		}
+	}
 }

@@ -21,7 +21,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
 	{
 		if (player == otherPlayer)
 		{
-	Destroy(gameObject);
+			Destroy(gameObject);
 		}
 	}
 

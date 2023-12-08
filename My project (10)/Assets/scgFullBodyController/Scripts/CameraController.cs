@@ -18,15 +18,15 @@ namespace scgFullBodyController
         public Transform parent;
         public Transform boneParent;
 
+        public Transform spineToOrientate;
+
         private float pitch = 0f;
 
         public GameObject PlayerManager;
         [HideInInspector] public float yaw = 0f;
         [HideInInspector] public float relativeYaw = 0f;
-        PhotonView PV;
         private void Awake()
         {
-            PV = PlayerManager.GetComponent<PhotonView>();
         }
         void OnEnable()
         {
@@ -36,10 +36,13 @@ namespace scgFullBodyController
 
         void LateUpdate()
         {
-            if (!PV.IsMine)
-                return;
+            //if (!PV.IsMine)
+            //    return;
             CameraRotate();
+           
             transform.position = boneParent.position;
+
+            spineToOrientate.rotation = transform.rotation;
         }
 
         void CameraRotate()
